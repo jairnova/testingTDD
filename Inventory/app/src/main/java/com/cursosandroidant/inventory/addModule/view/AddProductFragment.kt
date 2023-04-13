@@ -92,12 +92,12 @@ class AddProductFragment : DialogFragment(), DialogInterface.OnShowListener {
     }
 
     private fun setupObservers(){
-        viewModel.getResult().observe(viewLifecycleOwner, { result ->
+        viewModel.getResult().observe(viewLifecycleOwner) { result ->
             if (result) dismiss()
-        })
-        viewModel.isInProgress().observe(viewLifecycleOwner, { inProgress ->
+        }
+        viewModel.isInProgress().observe(viewLifecycleOwner) { inProgress ->
             binding.progressBar.visibility = if (inProgress) View.VISIBLE else View.GONE
-        })
+        }
     }
 
     override fun onShow(p0: DialogInterface?) {
