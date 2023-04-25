@@ -3,6 +3,7 @@ package com.cursosandroidant.forecastweather.mainModule.viewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.cursosandroidant.forecastweather.MainCoroutineRule
+import com.cursosandroidant.forecastweather.common.dataAccess.JSONFileLoader
 import com.cursosandroidant.forecastweather.common.dataAccess.WeatherForecastService
 import com.cursosandroidant.forecastweather.entities.WeatherForecastEntity
 import com.cursosandroidant.historicalweatherref.getOrAwaitValue
@@ -95,6 +96,25 @@ class MainViewModelTest{
                 "6a5c325c9265883997730d09be2328e8", "metric", "en")
             val result = mainViewModel.getResult().getOrAwaitValue()
             assertThat(result.hourly.size, `is`(48))
+        }
+    }
+
+    //Se hace una prueba donde comparamos el resultado local que hemos configurado en nuestro JSON
+    // con el del servidor
+    @Test
+    fun checkHourlySizeRemoteWithLocalTest(){
+
+        runBlocking {
+            //consulta directa de retrofit
+            val remoteResult = service.getWeatherForecastByCoordinates(19.4342, -99.1962,
+                "6a5c325c9265883997730d09be2328e8", "metric", "en")
+            //ahora cargamos nuestro archivo de Json, pero también como Entity
+            val localResult = JSONFileLoader().loadWeatherForecastEntity("weather_forecast_response_success")
+
+            assertThat(localResult?.hourly?.size,`is`(remoteResult.hourly.size))
+            //sirve cuando el back a sido actualizado y queremos comprobar rápidamente si, en efecto,
+            //la respuesta es cómo lo habíamos acordado anteriormente
+            assertThat(localResult?.timezone, `is`(remoteResult.timezone))
         }
     }
 }
