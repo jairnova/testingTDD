@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
             .build()
         // get appId
         val service = retrofit.create(WeatherForecastService::class.java)
-        service.getWeatherForecastByCoordinates(19.4342, -99.1962, "",
+        service.getWeatherForecastByCoordinates(19.4342, -99.1962, "6a5c325c9265883997730d09be2328e8",
             "metric", "en")
     }
 

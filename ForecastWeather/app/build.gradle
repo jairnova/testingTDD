@@ -52,8 +52,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
+    //Hamcrest
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 
+    //Arch Comp
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
 
+    //coroutines test
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
